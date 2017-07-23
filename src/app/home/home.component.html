@@ -1,0 +1,28 @@
+<div class="row">
+<div class="col-md-12">
+  <table class="table table-responsive">
+    <thead>
+      <th>
+        Name
+      </th>
+      <th>
+        Start Time
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let collectable of collectables">
+        <td>
+          {{collectable.name}}
+        </td>
+        <td>
+          {{collectable.start_time}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <div *ngFor="let collectable of collectables" class="col-md-12">
+
+  </div>
+</div>
