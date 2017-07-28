@@ -9,6 +9,7 @@ import { Collectable } from '../collectable/collectable';
 export class TrackedItemComponent implements OnInit {
 
   @Input() trackedItem: Collectable;
+  EORZEA_MULTIPLIER = 20.571428571428573;
 
   constructor() { }
 
@@ -17,25 +18,38 @@ export class TrackedItemComponent implements OnInit {
   }
 
   updateCountdownTime(): void {
-    const EORZEA_MULTIPLIER = 20.571428571428573;
 
-    let localEpoch = (new Date()).getTime();
-    let epoch = localEpoch * EORZEA_MULTIPLIER + 28800;
-    // let minutes = Math.floor((epoch / (1000 * 60)) % 60);
-    // let hours = Math.floor((epoch / (1000 * 60 * 60)) % 24);
-
-    let eorzeaDateTime = new Date(epoch);
-
+    let eorzeaTime = this.localToEorzea(new Date());
     let nodeHours = +this.trackedItem.start_time.split(':')[0];
-    let nodeMinutes = +this.trackedItem.start_time.split(':')[1];
-    let nodeSpawn = new Date(eorzeaDateTime.getFullYear(), eorzeaDateTime.getMonth()+1, eorzeaDateTime.getDate(), nodeHours, nodeMinutes);
 
-    let epochTicks = Math.floor((nodeSpawn.getTime() - 28800) / EORZEA_MULTIPLIER);
-    //let earthTicks = epochTicks + (new Date(1970, 1, 1)).getTime();
-    let earthDateTime = new Date(epochTicks);
+    let eSpawn = new Date(eorzeaTime);
 
-    this.trackedItem.countdown = `${earthDateTime}`;
+    eSpawn.setUTCHours(nodeHours);
+    eSpawn.setUTCMinutes(0);
+    eSpawn.setUTCDate(eorzeaTime.getUTCDate());
+
+    if (eSpawn < eorzeaTime) {
+      eSpawn.setUTCDate(eorzeaTime.getUTCDate() + 1);
+    }
+
+    let earthTime = this.eorzeaToLocal(eSpawn);
+
+    let distance = earthTime.getTime() - (new Date()).getTime();
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    this.trackedItem.countdown = `${minutes}m ${seconds}s`;
+
   }
+
+  eorzeaToLocal(date: Date): Date {
+    return new Date((date.getTime() - 28800) / this.EORZEA_MULTIPLIER);
+  }
+
+  localToEorzea(date: Date): Date {
+    return new Date(date.getTime() * this.EORZEA_MULTIPLIER + 28800);
+  }
+
 
 
 }
