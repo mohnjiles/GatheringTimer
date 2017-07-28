@@ -10,7 +10,7 @@
       </th>
     </thead>
     <tbody>
-      <tr *ngFor="let collectable of collectables">
+      <tr *ngFor="let collectable of collectables" [class.selected]="this.collectableService.trackedCollectables.includes(collectable)" (click)="this.collectableService.trackCollectable(collectable)">
         <td>
           {{collectable.name}}
         </td>
@@ -22,7 +22,5 @@
   </table>
 </div>
 
-  <div *ngFor="let collectable of collectables" class="col-md-12">
 
-  </div>
 </div>

@@ -1,15 +1,19 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
-
-<div style="text-align:center">
-  <h1>
+  <div class="view-panel">
+    <div class="row" *ngFor="let collectable of this.collectableService.trackedCollectables">
+      <tracked-item [trackedItem]="collectable"></tracked-item>
+    </div>
+  </div>
+  <div style="text-align:center">
+    <h1>
     Welcome to {{title}}!
   </h1>
-</div>
+  </div>
 
-<div class="row">
-  <h3>Collectables</h3>
-  <home></home>
-</div>
+  <div class="row">
+    <h3>Collectables</h3>
+    <home></home>
+  </div>
 
 </div>

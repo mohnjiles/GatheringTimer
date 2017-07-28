@@ -7,4 +7,5 @@ export class Collectable {
   nearest_teleport: string;
   start_time: string;
   end_time: string;
+  countdown: string;
 }

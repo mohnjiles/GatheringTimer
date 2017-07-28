@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { CollectableService } from './collectable/collectable.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Collectable Timer';
+
+  constructor(private collectableService: CollectableService) {
+
+  }
+
+
 }

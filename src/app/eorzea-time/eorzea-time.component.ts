@@ -22,7 +22,7 @@ export class EorzeaTimeComponent implements OnInit {
 
   setEorzeaTime(): void {
     var localEpoch = (new Date()).getTime();
-    var epoch = localEpoch * 20.571428571428573;
+    var epoch = localEpoch * 20.571428571428573 + 28800;
     var minutes = Math.floor((epoch / (1000 * 60)) % 60);
     var hours = Math.floor((epoch / (1000 * 60 * 60)) % 24);
 
@@ -39,6 +39,9 @@ export class EorzeaTimeComponent implements OnInit {
     } else if (hours > 12) {
       amPmText = "PM";
       hoursText = `${(hours - 12)}`;
+    } else if (hours == 12) {
+      amPmText = "PM";
+      hoursText = `${hours}`;
     }
 
     if (minutes < 10) {
