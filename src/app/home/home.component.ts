@@ -18,4 +18,11 @@ export class HomeComponent implements OnInit {
     this.collectableService.getCollectables()
       .then(collectables => this.collectables = collectables);
   }
+
+  isInList(collectable: Collectable): boolean {
+    if (this.collectableService.trackedCollectables.find(x => x.id == collectable.id))
+      return true;
+
+    return false;
+  }
 }

@@ -8,10 +8,21 @@ import { CollectableService } from './collectable/collectable.service';
 })
 export class AppComponent {
   title = 'Collectable Timer';
+  maxHeight: Number = 125;
+  expandCollapseText = "Expand";
 
   constructor(private collectableService: CollectableService) {
 
   }
 
+  expandCollapse(): void {
+    if (this.maxHeight == 125) {
+      this.maxHeight = 4000;
+      this.expandCollapseText = "Collapse";
+    } else {
+      this.maxHeight = 125;
+      this.expandCollapseText = "Expand";
+    }
+  }
 
 }

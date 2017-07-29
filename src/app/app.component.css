@@ -4,11 +4,15 @@
 
 .view-panel {
     position: fixed;
-    top: 60px;
-    left: 20px;
+    top: 52px;
+    left: 0px;
+    font-size: 1.5em;
+    padding-left: 20px;
+    background-color: #ddd;
     height: auto;
-    max-height: 138px;
-    width: calc(68%);
+    max-height: 125px;
+    width: calc(100%);
     white-space: nowrap;
     z-index: 600;
+    overflow: hidden;
 }

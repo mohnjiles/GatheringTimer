@@ -28,14 +28,14 @@ export class TrackedItemComponent implements OnInit {
     eSpawn.setUTCMinutes(0);
     eSpawn.setUTCDate(eorzeaTime.getUTCDate());
 
-    if (eSpawn < eorzeaTime) {
+    while (eSpawn < eorzeaTime) {
       eSpawn.setUTCDate(eorzeaTime.getUTCDate() + 1);
     }
 
     let earthTime = this.eorzeaToLocal(eSpawn);
 
     let distance = earthTime.getTime() - (new Date()).getTime();
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let minutes = Math.floor(distance / 60000);
     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     this.trackedItem.countdown = `${minutes}m ${seconds}s`;

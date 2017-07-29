@@ -1,10 +1,13 @@
 <app-navbar></app-navbar>
-<div class="container-fluid">
-  <div class="view-panel">
-    <div class="row" *ngFor="let collectable of this.collectableService.trackedCollectables">
-      <tracked-item [trackedItem]="collectable"></tracked-item>
-    </div>
+<div class="view-panel" [style.max-height.px]="maxHeight">
+  <div id="btnExpand" class="btn btn-info" style="float: right; margin-right: 1em; margin-top: 1em;" (click)="expandCollapse()">
+    {{expandCollapseText}}
   </div>
+  <div class="row" *ngFor="let collectable of this.collectableService.trackedCollectables">
+    <tracked-item [trackedItem]="collectable"></tracked-item>
+  </div>
+</div>
+<div class="container-fluid" style="margin-top: 150px;">
   <div style="text-align:center">
     <h1>
     Welcome to {{title}}!

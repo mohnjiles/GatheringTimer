@@ -10,7 +10,7 @@
       </th>
     </thead>
     <tbody>
-      <tr *ngFor="let collectable of collectables" [class.selected]="this.collectableService.trackedCollectables.includes(collectable)" (click)="this.collectableService.trackCollectable(collectable)">
+      <tr *ngFor="let collectable of collectables" [class.selected]="this.isInList(collectable)" (click)="this.collectableService.trackCollectable(collectable)">
         <td>
           {{collectable.name}}
         </td>
