@@ -2,21 +2,26 @@
 <div class="col-md-12">
   <table class="table table-responsive">
     <thead>
-      <th>
-        Name
-      </th>
-      <th>
-        Start Time
-      </th>
+      <th>Name</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Slot</th>
+      <th>Zone</th>
+      <th>Location</th>
+      <th>Nearest Aetheryte</th>
+      <th>Profession</th>
+
     </thead>
     <tbody>
       <tr *ngFor="let collectable of collectables" [class.selected]="this.isInList(collectable)" (click)="this.collectableService.trackCollectable(collectable)">
-        <td>
-          {{collectable.name}}
-        </td>
-        <td>
-          {{collectable.start_time}}
-        </td>
+        <td>{{collectable.name}}</td>
+        <td>{{collectable.start_time}}</td>
+        <td>{{collectable.end_time}}</td>
+        <td>{{collectable.slot}}</td>
+        <td>{{collectable.zone}}</td>
+        <td>{{collectable.location}}</td>
+        <td>{{collectable.nearest_teleport}}</td>
+        <td>{{collectable.profession}}</td>
       </tr>
     </tbody>
   </table>

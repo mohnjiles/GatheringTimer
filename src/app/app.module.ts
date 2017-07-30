@@ -8,6 +8,7 @@ import { EorzeaTimeComponent } from './eorzea-time/eorzea-time.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TrackedItemComponent } from './tracked-item/tracked-item.component';
 
+import { TimeService } from './time-service/time.service';
 import { CookieService, CookieOptions } from 'angular2-cookie/core';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { CookieService, CookieOptions } from 'angular2-cookie/core';
     CollectableService,
     Title,
     CookieService,
+    TimeService,
     {provide: CookieOptions, useValue: {}}
   ],
   bootstrap: [AppComponent]

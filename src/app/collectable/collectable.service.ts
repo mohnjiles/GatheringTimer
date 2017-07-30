@@ -19,7 +19,7 @@ export class CollectableService {
       this.trackedCollectables = JSON.parse(savedCollectables);
     }
 
-    setTimeout(() => {this.sortCollectables()}, 2000);
+    setInterval(() => {this.sortCollectables()}, 200);
   }
 
   getCollectables(): Promise<Collectable[]> {
@@ -33,7 +33,6 @@ export class CollectableService {
   trackCollectable(collectable: Collectable): void {
 
     if (this.trackedCollectables.find(x => x.id == collectable.id)) {
-      console.log("removing");
       this.removeCollectable(collectable);
     } else {
       this.trackedCollectables.push(collectable);
@@ -50,11 +49,21 @@ export class CollectableService {
 
   sortCollectables(): void {
     this.trackedCollectables.sort((a: Collectable, b: Collectable) => {
-      console.log(a.countdown);
-      console.log(b.countdown);
-      if (a.countdown < b.countdown)
+
+      let aRegex = /[0-9]*m/.exec(a.countdown);
+      let bRegex = /[0-9]*m/.exec(b.countdown);
+      if (aRegex != null){
+        var aMinutes = +aRegex[0].replace("m", "");
+      }
+
+      if (bRegex != null){
+        var bMinutes = +bRegex[0].replace("m", "");
+      }
+
+
+      if (aMinutes < bMinutes)
         return -1;
-      else if (a.countdown > b.countdown)
+      else if (aMinutes > bMinutes)
         return 1;
       else return 0;
 

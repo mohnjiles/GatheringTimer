@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
+import { TimeService } from '../time-service/time.service';
 
 @Component({
   selector: 'eorzea-time',
@@ -9,7 +10,8 @@ import { Title }     from '@angular/platform-browser';
 export class EorzeaTimeComponent implements OnInit {
   eorzeaTime: string;
 
-  constructor(private titleService: Title) { }
+  constructor(private titleService: Title,
+              private timeService: TimeService) { }
 
   ngOnInit() {
     this.setEorzeaTime();
@@ -26,31 +28,7 @@ export class EorzeaTimeComponent implements OnInit {
     var minutes = Math.floor((epoch / (1000 * 60)) % 60);
     var hours = Math.floor((epoch / (1000 * 60 * 60)) % 24);
 
-    var minutesText: string;
-    var hoursText: string;
-    var amPmText: string;
-
-    if (hours == 0) {
-      hoursText = "12";
-      amPmText = "AM";
-    } else if (hours > 0 && hours < 12) {
-      amPmText = "AM";
-      hoursText = hours.toString();
-    } else if (hours > 12) {
-      amPmText = "PM";
-      hoursText = `${(hours - 12)}`;
-    } else if (hours == 12) {
-      amPmText = "PM";
-      hoursText = `${hours}`;
-    }
-
-    if (minutes < 10) {
-      minutesText = `0${minutes}`;
-    } else {
-      minutesText = minutes.toString();
-    }
-
-    this.eorzeaTime = `${hoursText}:${minutesText} ${amPmText}`;
+    this.eorzeaTime = this.timeService.makeReadableTime(hours, minutes);
     this.setTitle(this.eorzeaTime);
   }
 }

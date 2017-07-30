@@ -1,0 +1,13 @@
+.earth-time {
+  font-size: 0.5em;
+  line-height: 1px;
+}
+
+.eorzea-time {
+  font-size: 0.6em;
+  line-height: 1px;
+}
+
+.spawned {
+  color: red;
+}

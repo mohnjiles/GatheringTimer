@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Collectable } from '../collectable/collectable';
+import { TimeService } from '../time-service/time.service';
 
 @Component({
   selector: 'tracked-item',
@@ -11,45 +12,67 @@ export class TrackedItemComponent implements OnInit {
   @Input() trackedItem: Collectable;
   EORZEA_MULTIPLIER = 20.571428571428573;
 
-  constructor() { }
+  public isSpawned = false;
+
+  constructor(private timeService: TimeService) { }
 
   ngOnInit() {
-    setInterval(() => {this.updateCountdownTime()}, 400);
+    setInterval(() => { this.updateCountdownTime() }, 400);
   }
 
   updateCountdownTime(): void {
 
-    let eorzeaTime = this.localToEorzea(new Date());
-    let nodeHours = +this.trackedItem.start_time.split(':')[0];
+    let eorzeaTime = this.timeService.localToEorzea(new Date());
+    let nodeStartHours = +this.trackedItem.start_time.split(':')[0];
+    let nodeStartMinutes = +this.trackedItem.start_time.split(':')[1];
+    let nodeEndHours = +this.trackedItem.end_time.split(':')[0];
+    let nodeEndMinutes = +this.trackedItem.end_time.split(':')[1];
 
     let eSpawn = new Date(eorzeaTime);
 
-    eSpawn.setUTCHours(nodeHours);
+    eSpawn.setUTCHours(nodeStartHours);
     eSpawn.setUTCMinutes(0);
     eSpawn.setUTCDate(eorzeaTime.getUTCDate());
 
-    while (eSpawn < eorzeaTime) {
-      eSpawn.setUTCDate(eorzeaTime.getUTCDate() + 1);
+    let eDespawn = new Date(eSpawn);
+    eDespawn.setUTCHours(nodeEndHours);
+    eDespawn.setUTCMinutes(nodeEndMinutes);
+
+    if (eorzeaTime > eSpawn && eorzeaTime < eDespawn) {
+      this.isSpawned = true;
+
+      let earthTime = this.timeService.eorzeaToLocal(eDespawn);
+      let hours = earthTime.getHours();
+      let minutes = earthTime.getMinutes();
+
+      this.trackedItem.earthTime = this.timeService.makeReadableTime(hours, minutes);
+
+      let distance = earthTime.getTime() - (new Date()).getTime();
+      let distanceMinutes = Math.floor(distance / 60000);
+      let distanceSeconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      this.trackedItem.countdown = `${distanceMinutes}m ${distanceSeconds}s`;
+    } else {
+
+      this.isSpawned = false;
+
+      while (eSpawn < eorzeaTime) {
+        eSpawn.setUTCDate(eorzeaTime.getUTCDate() + 1);
+      }
+
+      let earthTime = this.timeService.eorzeaToLocal(eSpawn);
+      let hours = earthTime.getHours();
+      let minutes = earthTime.getMinutes();
+
+      this.trackedItem.earthTime = this.timeService.makeReadableTime(hours, minutes);
+
+      let distance = earthTime.getTime() - (new Date()).getTime();
+      let distanceMinutes = Math.floor(distance / 60000);
+      let distanceSeconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      this.trackedItem.countdown = `${distanceMinutes}m ${distanceSeconds}s`;
     }
 
-    let earthTime = this.eorzeaToLocal(eSpawn);
-
-    let distance = earthTime.getTime() - (new Date()).getTime();
-    let minutes = Math.floor(distance / 60000);
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    this.trackedItem.countdown = `${minutes}m ${seconds}s`;
-
   }
-
-  eorzeaToLocal(date: Date): Date {
-    return new Date((date.getTime() - 28800) / this.EORZEA_MULTIPLIER);
-  }
-
-  localToEorzea(date: Date): Date {
-    return new Date(date.getTime() * this.EORZEA_MULTIPLIER + 28800);
-  }
-
-
 
 }

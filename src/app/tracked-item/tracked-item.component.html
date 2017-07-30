@@ -1,7 +1,14 @@
-  <div class="col-md-1">
-    {{trackedItem.countdown}}
+<div class="row" style="padding: 0.2em;">
+  <div class="col-md-1 countdown" [class.spawned]="isSpawned">
+    <p>{{trackedItem.countdown}}</p>
+    <p class="earth-time">Earth Time - {{trackedItem.earthTime}}</p>
   </div>
-  <div class="col-md-3">
-    {{trackedItem.name}}<br/>
-    {{trackedItem.start_time}} - {{trackedItem.end_time}}
+  <div class="col-md-2">
+    <p>{{trackedItem.name}} ({{trackedItem.slot}})</p>
+    <p class="eorzea-time">{{trackedItem.start_time}} - {{trackedItem.end_time}}</p>
   </div>
+  <div class="col-md-2">
+    <p>{{trackedItem.zone}} ({{trackedItem.location}})</p>
+    <p class="eorzea-time">{{trackedItem.nearest_teleport}}</p>
+  </div>
+</div>
