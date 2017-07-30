@@ -14,7 +14,7 @@ export class TrackedItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    setInterval(() => {this.updateCountdownTime()}, 1000);
+    setInterval(() => {this.updateCountdownTime()}, 400);
   }
 
   updateCountdownTime(): void {

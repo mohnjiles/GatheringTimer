@@ -11,7 +11,7 @@ export class AppComponent {
   maxHeight: Number = 125;
   expandCollapseText = "Expand";
 
-  constructor(private collectableService: CollectableService) {
+  constructor(public collectableService: CollectableService) {
 
   }
 
