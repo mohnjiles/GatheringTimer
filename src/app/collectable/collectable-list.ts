@@ -1,5 +1,4 @@
 import {Collectable} from './collectable';
-import { GatheringItem, Item } from '../gathering-item/gathering-item';
 
 export const COLLECTABLES: Collectable[] = [
   {
