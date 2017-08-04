@@ -1,4 +1,5 @@
 import {Collectable} from './collectable';
+import { GatheringItem, Item } from '../gathering-item/gathering-item';
 
 export const COLLECTABLES: Collectable[] = [
   {
@@ -14,9 +15,14 @@ export const COLLECTABLES: Collectable[] = [
     earthTime: null
   },
   {
-    id: 3, name: "Palladium Ore", start_time: "02:00", end_time: "03:55",
+    id: 3, name: "Palladium Ore", start_time: "04:00", end_time: "05:55",
     profession: "Mining", location: "21, 10", zone: "Yanxia",
     nearest_teleport: "The House of the Fierce", slot: 6, countdown: null,
     earthTime: null
+  },
+  {
+    id: 4, name: "Abalathian Mistletoe", start_time: "06:00", end_time: "07:55",
+    profession: "Botany", location: "33, 23", zone: "The Sea of Clouds",
+    nearest_teleport: "Camp Cloudtop", slot: 3, countdown: null, earthTime: null
   }
-]
+];
